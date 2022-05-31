@@ -157,9 +157,9 @@ def show_exam_result(request, course_id, submission_id):
     choices = submission.choices.all()
     total_mark, mark = 0, 0
     for question in course.question_set.all():
-        total_mark += question.grade
+        total_mark += round(question.grade)
         if question.is_get_score(choices):
-            mark += question.grade
+            mark += round(question.grade)
     
     return render(
         request,
@@ -167,7 +167,7 @@ def show_exam_result(request, course_id, submission_id):
         {"course":course, "choices":choices,"mark":mark, 
             "total_mark": total_mark, 
             "submission": submission,
-            "grade": int((mark / total_mark) * 100) }
+            "grade": int((mark / total_mark) * 100)}
     )
 
 
